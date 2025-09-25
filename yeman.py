@@ -1,0 +1,36 @@
+import os
+import subprocess
+import base64
+
+# الرابط المشفر لـ https://github.com/asalft/hhhhh.git
+# يمكن إضافة مسافة اختيارية لجعل التنسيق مطابقًا للكود الأصلي
+repo_encoded = "aHR0cHM6Ly9naXRodWIuY29tL2FzYWxmdC9o aGhoaGguZ2l0"
+branch = "main"
+
+def run(cmd):
+    print(f"⌭ تنفيذ: {cmd}")
+    subprocess.run(cmd, shell=True, check=True)
+
+def _run_git_clone():
+    print("⌭ جاري تحميل سورس آسال ⌭")
+    # يتم فك تشفير الرابط بعد إزالة المسافات
+    repo_url = base64.b64decode(repo_encoded.replace(" ", "")).decode()
+    run(f"git clone -b {branch} {repo_url} source_temp")
+    os.chdir("source_temp")
+
+def _install_requirements():
+    print("⌭ تثبيت مكاتب آسال ⌭")
+    run("pip install -r requirements.txt")
+
+def _start_project():
+    print("⌭ بدء تشغيل آسال ⌭")
+    # تشغيل server.py في الخلفية ثم اسم البوت الفعلي (يفترض أنه 'asal')
+    # إذا كان اسم البوت في السورس الجديد 'asal' بدلاً من 'yamenthon'
+    run("python3 server.py &")
+    # تم الإبقاء على 'yamenthon' كافتراض، يرجى تغييره إذا كان اسم ملف التشغيل مختلفًا
+    run("python3 -m yamenthon") 
+
+if __name__ == "__main__":
+    _run_git_clone()
+    _install_requirements()
+    _start_project()
